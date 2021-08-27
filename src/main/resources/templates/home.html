@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+
+<html lang = "rus"
+      xmlns:th = "http://www.thymeleaf.org">
+
+  <head>
+
+    <meta http-equiv = "Content-Type"
+          content = "text/html;
+          charset = UTF-8"/>
+
+    <title th:text = "${title}"></title>
+
+    <style>
+
+      ul {
+	    margin: 0;
+        padding: 0;
+        border-radius: 4px;
+        background-color: #00eaff;
+
+      }
+
+      .navigation li {
+        display: inline-block;
+      }
+
+      .navigation li:first-of-type {
+        padding-left: 208px;
+      }
+
+      .navigation a {
+        color: #170680;
+        padding: 15px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .sidebar a {
+        color: #170680;
+        padding: 15px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: block;
+      }
+
+      a:hover {
+        background-color: #00aeff;
+      }
+
+      div {
+        margin: 2px;
+      }
+
+      div.sidebar  {
+        width: 200px;
+      }
+
+	  .sidebar {
+	    position: fixed;
+	  }
+
+	  .main {
+	    margin-top: 5px;
+	    margin-left: 210px;
+	    border: 1px solid black;
+  	    border-radius: 4px;
+  	    height: 800px;
+	  }
+
+	  .box {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .box > div {
+        height: 400px;
+  	    width:  240px;
+        border: 1px solid black;
+  	    border-radius: 4px;
+      }
+
+      .title {
+        height: 20px;
+        padding: 4px 12px;
+  	    text-align: left;
+  	    border-radius: 4px;
+  	    background-color: #00eaff;
+  	  }
+
+  	  .title:hover {
+        background-color: #00aeff;
+  	  }
+
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- Навигация -->
+    <div class = "navigation">
+        <ul>
+            <li><a href="/">Home page</a></li>
+            <li><a href="#">Reference #2</a></li>
+            <li><a href="#">Reference #3</a></li>
+            <li><a href="#">Reference #4</a></li>
+        </ul>
+    </div>
+
+    <!-- Боковая панель (меню) -->
+    <div class = "sidebar">
+        <ul>
+            <li><a href="/board">Board</a></li>
+            <li><a href="#">Link #2</a></li>
+            <li><a href="#">Link #3</a></li>
+            <li><a href="#">Link #4</a></li>
+        </ul>
+    </div>
+
+    <!-- Основной контент -->
+    <div class = "main">
+
+
+
+    </div>
+
+
+
+  </body>
+
+</html>

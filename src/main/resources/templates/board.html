@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+
+<html lang = "rus"
+      xmlns:th = "http://www.thymeleaf.org">
+
+  <head>
+
+    <meta http-equiv = "Content-Type"
+          content = "text/html;
+          charset = UTF-8"/>
+
+    <title th:text = "${title}"></title>
+
+    <style>
+
+      ul {
+	    margin: 0;
+        padding: 0;
+        border-radius: 4px;
+        background-color: #00eaff;
+
+      }
+
+      .navigation li {
+        display: inline-block;
+      }
+
+      .navigation li:first-of-type {
+        padding-left: 208px;
+      }
+
+      .navigation a {
+        color: #170680;
+        padding: 15px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .sidebar a {
+        color: #170680;
+        padding: 15px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: block;
+      }
+
+      a:hover {
+        background-color: #00aeff;
+      }
+
+      div {
+        margin: 2px;
+      }
+
+      div.sidebar  {
+        width: 200px;
+      }
+
+	  .sidebar {
+	    position: fixed;
+	  }
+
+	  .main {
+	    margin-top: 5px;
+	    margin-left: 210px;
+	    border: 1px solid black;
+  	    border-radius: 4px;
+  	    height: 550px;
+  	    overflow-x: scroll;
+	  }
+
+	  .box {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .box > div {
+        height: 500px;
+  	    width:  250px;
+        border: 1px solid black;
+  	    border-radius: 4px;
+  	    overflow-y: scroll;
+      }
+
+      .title,
+      .create_a_task{
+        height: 20px;
+        padding: 4px 6px;
+        cursor: default;
+  	    text-align: left;
+  	    border-radius: 4px;
+  	    background-color: #00eaff;
+  	  }
+
+  	  .title:hover,
+  	  .create_a_task:hover {
+        background-color: #00aeff;
+  	  }
+
+  	  #textarea {
+  	    margin:  2px;
+  	    padding: 4px;
+  	    width:  215px;
+  	    height: 100px;
+  	    overflow-y: scroll;
+        resize: none;
+        outline: none;
+  	  }
+
+  	  #textarea:focus-within {
+  	    border-radius: 4px;
+  	    border: 2px solid blue;
+  	  }
+
+  	  /* ==== ==== ... ==== ==== ==== ==== */
+
+      .task {
+        width: 216px;
+        height: 88px;
+        padding: 4px 6px;
+        cursor: default;
+  	    text-align: left;
+  	    border-radius: 4px;
+  	    background-color: #00eaff;
+      }
+
+      #textarea_1 {
+        wrap: hard;
+        width: 212px;
+        height: 60px;
+        resize: none;
+        outline: none;
+        overflow: auto;
+        border: 0 none white;
+        background-color: #00eaff;
+      }
+
+      select {
+
+        float: right;
+
+
+
+
+
+      }
+
+
+
+
+    </style>
+
+    <script>
+
+      let flag = false; // document.getElementById('textarea')
+
+      createTask = function() {
+        document.querySelector(".create_a_task").hidden = true;
+        document.querySelector(".textarea").hidden = false;
+        document.querySelector(".textarea").value  = "";
+        setTimeout(() => { flag = true; }, 50);
+      }
+
+      window.onload = function () {
+        document.body.onclick = function (event) {
+          event  = event        || window.event;
+          target = event.target || event.srcElement;
+          if (flag == true &&
+              target.tagName != "TEXTAREA" &&
+              document.querySelector(".textarea").hidden == false) {
+            setTimeout(() => { flag = false; }, 50);
+            document.querySelector(".create_a_task").hidden = false;
+            document.querySelector(".textarea").hidden = true;
+            if (document.querySelector(".textarea").value  != "") {
+              const create_a_task = document.querySelector(".create_a_task");
+              create_a_task.insertAdjacentHTML(
+                "beforebegin",
+                "<div class = 'task'>"
+                  + "<textarea "
+                    + "type = 'text' "
+                    + "id = 'textarea_1' readonly>"
+                    + document.getElementById('textarea').value
+                  + "</textarea>"
+                  + "<select id = 'selectBox' onchange = 'func(value);'>"
+                    + "<option>...</option>"
+                    + "<option value = '1'>Редактировать</option>"
+                    + "<option value = '2'>Изменить статус</option>"
+                    + "<option value = '3'>Удалить</option>"
+                  + "</>select>"
+                + "</div>"
+              );
+            }
+          }
+        }
+      }
+
+      function func(value) {
+        //console.log(value);
+
+        for (var i = 0; i < document.body.children.length; i++) {
+          console.log( document.body.children[i] );
+        }
+      }
+
+    </script>
+
+  </head>
+
+  <body>
+
+    <!-- Навигация -->
+    <div class = "navigation">
+      <ul>
+        <li><a href="/">Home page</a></li>
+        <li><a href="#">Reference #2</a></li>
+        <li><a href="#">Reference #3</a></li>
+        <li><a href="#">Reference #4</a></li>
+      </ul>
+    </div>
+
+    <!-- Боковая панель (меню) -->
+    <div class = "sidebar">
+      <ul>
+        <li><a href="/board">Board</a></li>
+        <li><a href="#">Link #2</a></li>
+        <li><a href="#">Link #3</a></li>
+        <li><a href="#">Link #4</a></li>
+      </ul>
+    </div>
+
+    <!-- Основной контент -->
+    <div class = "main"
+         onclick = 'func()'>
+      <div class = "box">
+        <div class = "to_work">
+          <div class = "title">To work</div>
+          <div class = "create_a_task"
+               onclick = createTask()>Create a task</div>
+          <textarea type = "text" hidden = true
+                    class  = "textarea" id = "textarea"
+                    placeholder = "What should be done?"></textarea>
+        </div>
+        <div class = "in_work">
+          <div class = "title">In work</div>
+          <div class = "create_a_task">Create a task</div>
+        </div>
+        <div class = "ready">
+          <div class = "title">Ready</div>
+          <div class = "create_a_task">Create a task</div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+</html>
